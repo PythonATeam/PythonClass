@@ -1,16 +1,12 @@
-
-# A very simple Flask Hello World app for you to get started with...
-
-from flask import Flask, render_template, redirect, request, url_for
+from datetime import datetime
+from flask import Flask, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_login import login_user, LoginManager, UserMixin, logout_user, login_required
+from flask_login import current_user, login_required, login_user, LoginManager, logout_user, UserMixin
 from werkzeug.security import check_password_hash
-from datetime import datetime
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
-
 
 SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
     username="tilted4",
@@ -29,8 +25,8 @@ app.secret_key = "fghr393ghdg93ggh3933"
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-class User(UserMixin, db.Model):
 
+class User(UserMixin, db.Model):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -46,11 +42,9 @@ class User(UserMixin, db.Model):
         return self.username
 
 
-
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.filter_by(username=user_id).first()
-
 
 
 class Comment(db.Model):
@@ -58,12 +52,10 @@ class Comment(db.Model):
     __tablename__ = "comments"
 
     id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.String(4096), nullable = False)
+    content = db.Column(db.String(4096))
     posted = db.Column(db.DateTime, default=datetime.now)
-
-
-
-
+    commenter_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
+    commenter = db.relationship('User', foreign_keys=commenter_id)
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -73,11 +65,11 @@ def index():
 
     if not current_user.is_authenticated:
         return redirect(url_for('index'))
-    comment = Comment(content=request.form["contents"])
+
+    comment = Comment(content=request.form["contents"], commenter=current_user)
     db.session.add(comment)
     db.session.commit()
     return redirect(url_for('index'))
-
 
 
 @app.route("/login/", methods=["GET", "POST"])
@@ -95,9 +87,9 @@ def login():
     login_user(user)
     return redirect(url_for('index'))
 
+
 @app.route("/logout/")
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
-
