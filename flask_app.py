@@ -42,17 +42,9 @@ def index():
     db.session.commit()
     return redirect(url_for('index'))
 
-@app.route('/login')
+@app.route("/login/")
 def login():
-    return render_template('login.html')
-
-@app.route('/signup')
-def signup():
-    return render_template('signup.html')
-
-@app.route('/dashboard')
-def dashboard():
-    return render_template('dashboard.html')
+    return render_template("login_page.html")
 
 
 
