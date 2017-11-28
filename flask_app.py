@@ -66,17 +66,27 @@ class Comment(db.Model):
     #game_id = db.Column(db.Integer, db.ForeignKey('game.id'), nullable=True)
     commenter = db.relationship('User', foreign_keys=commenter_id)
 
+class Dummy(db.Model):
+
+    __tablename__ = "dummy"
+
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String(50), nullable=False)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "GET":
-        return render_template("main_page.html", comments=Comment.query.all())
+        return render_template("main_page.html", comments=Comment.query.all(), dummy=Dummy.query.all())
 
     if not current_user.is_authenticated:
         return redirect(url_for('index'))
 
-    comment = Comment(content=request.form["contents"], commenter=current_user)
-    db.session.add(comment)
+    if 'animal' in request.form:
+        Dummy.query.filter(Dummy.id.in_(request.form["animal"])).delete(synchronize_session='fetch')
+
+    #comment = Comment(content=request.form["contents"], commenter=current_user)
+    #db.session.add(comment)
+
     db.session.commit()
     return redirect(url_for('index'))
 
