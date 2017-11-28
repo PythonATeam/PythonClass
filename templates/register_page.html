@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+        <title>Tilted 4: Register</title>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-inverse">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Tilted 4: Register</a>
+            </div>
+          </div>
+        </nav>
+
+        <div class="container">
+
+            <div class="row">
+                {% if error %}
+                    <div class="alert alert-warning" role="alert">
+                        Username already exists, please try something else!
+                    </div>
+                {% endif %}
+                {% if passfail %}
+                    <div class="alert alert-warning" role="alert">
+                        Passwords did not match!
+                    </div>
+                {% endif %}
+
+                <form action="." method="POST">
+                  <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input class="form-control" required id="username" name="username" placeholder="Enter your username">
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" required class="form-control" id="email" name="email" placeholder="Enter your email">
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" required class="form-control" id="password" name="password" placeholder="Enter your password">
+                  </div>
+                  <div class="form-group">
+                    <label for="pwconfirm">Confirm Password:</label>
+                    <input type="password" required class="form-control" id="pwconfirm" name="pwconfirm" placeholder="Re-Enter your password">
+                  </div>
+                  <div class="form-group">
+                    <label for="fname">First Name:</label>
+                    <input class="form-control" id="fname" name="fname" placeholder="Enter your first name">
+                  </div>
+                  <div class="form-group">
+                    <label for="lname">Last Name:</label>
+                    <input class="form-control" id="lname" name="lname" placeholder="Enter your last name">
+                  </div>
+                  <div class="form-group">
+                    <label for="bday">Birthday:</label>
+                    <input type="date" class="form-control" id="bday" name="bday" placeholder="Enter your birthday">
+                  </div>
+                  <button type="submit" class="btn btn-success">Create Account</button>
+                </form>
+
+
+
+
+            </div>
+
+        </div>
+
+    </body>
+</html>
