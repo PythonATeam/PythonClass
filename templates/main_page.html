@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
-        <title>My scratchboard page</title>
+        <title>TiltedSalt</title>
     </head>
 
     <body>
@@ -26,8 +26,8 @@
                 {% else %}
                     <li><a href="{{ url_for('login') }}">Log in</a></li>
                     <li><a href="{{ url_for('register') }}">Register</a></li>
-                    <li><a href="{{ url_for('login') }}">Compare</a></li>
-                    <li><a href="{{ url_for('login') }}">Game</a></li>
+                    <li><a href="{{ url_for('compare') }}">Compare</a></li>
+                    <li><a href="{{ url_for('game') }}">Game</a></li>
                 {% endif %}
             </ul>
           </div>
@@ -36,29 +36,58 @@
 
         <div class="container">
 
-        <!--    {% for comment in comments %}
+        {% if current_user.username == "admin" %}
+                <hr size="10">
+
+                <div class="row">
+
+                    Welcome to the ADMIN console <br>
+                    (With great power comes great responsibility) <br>
+
+                    Users:<br>
+
+                    <form action ="." method="POST">
+                    <input type="submit" class="btn btn-success" value="Remove Selected"><br>
+                     {% for use in userss %}
+                     {% if use.username != "admin" %}
                 <div class="row" style="margin-bottom: 1ex">
                     <div>
-                        {{ comment.content }}
-                    </div>
-                    <div>
-                        <small>
-                            Posted
-                            {% if comment.posted %}
-                                {{ comment.posted.strftime("%A, %d %B %Y at %H:%M") }}
-                            {% else %}
-                                at an unknown time
-                            {% endif %}
-                            by
-                            {% if comment.commenter %}
-                                {{ comment.commenter.username }}
-                            {% else %}
-                                anonymous
-                            {% endif %}
-                        </small>
+
+                        <input type='checkbox' name="delme" value="{{ use.id }}">
+                        {{use.id}} is -> {{ use.username }}
+
+
                     </div>
                 </div>
-            {% endfor %} -->
+
+
+                 {% endif %}
+                    {% endfor %}
+                 </form>
+                </div>
+
+                <div class="row">
+                    Games:<br>
+
+
+                    {% for gm in games %}
+                    <form action ="." method="POST">
+                    <div class="row" style="margin-bottom: 1ex">
+                        <div>
+                     <input type="text" placeholder="Enter New Title"  name="upme">
+                     <input type="hidden" name="upid" value="{{ gm.id }}">
+                <input type="submit" class="btn btn-danger" value="Change Me -->">
+                    Current Title: {{gm.title}}
+
+                    </div>
+                </div>
+
+                    </form>
+                    {% endfor %}
+                <hr size="10">
+            {% endif %}
+
+
 
             {% if current_user.is_authenticated %}
                 <div class="row">
@@ -68,27 +97,9 @@
                         <input type="submit" class="btn btn-success" value="Post comment">
                     </form> -->
                 </div>
-                {% if current_user.username == "admin" %}
-                <div class="row">
-                    I CAN SEE YOU ARE THE ADMIN!
-                    CHECKOUT OUR DUMMY TABLE:
-                    <form action ="." method="POST">
-                    <input type="submit" class="btn btn-success" value="Remove Selected">
-                     {% for dumm in dummy %}
-                <div class="row" style="margin-bottom: 1ex">
-                    <div>
 
-                        <input type='checkbox' name="animal" value="{{ dumm.id }}">
-                        {{ dumm.content }}
+            <hr size="10">
 
-
-                    </div>
-
-                </div>
-                    {% endfor %}
-                 </form>
-                </div>
-                {% endif %}
             {% endif %}
 
             {% if not current_user.is_authenticated %}
@@ -100,6 +111,75 @@
                     </form> -->
                 </div>
             {% endif %}
+
+
+<!-- START SEARCH LOGIC HERE -->
+
+        <div class="row">
+            Search by genre:<br>
+            <form action ="." method="POST">
+            <select name="sgenre">
+                <option value="nothing" disabled selected hidden>GENRE</option>
+            {% for gen in genres %}
+                <option value="{{ gen }}">{{gen}}</option>
+
+            {% endfor %}
+
+            </select>
+
+
+            Search by name:<br>
+
+                <textarea name="gamename" placeholder="Enter a name" value="nothing"></textarea>
+                <input type="submit" class="btn btn-success" value="Search">
+
+            </form>
+
+             <hr size="10">
+
+<!-- START SORTING HERE -->
+            Sort:
+
+            <form action="." method="POST">
+                <input type="hidden" name="sortprice" value="low">
+                <input type="hidden" name="sgenre" value="{{ pgenre }}">
+                <input type="hidden" name="gamename" value="{{ pgamename }}">
+                <input type="submit" class="btn btn-success" value="Sort by Price (descending)">
+
+            </form>
+
+
+            <!-- sort by lower price -->
+
+            <form action="." method="POST">
+                <input type="hidden" name="sortprice" value="high">
+                <input type="hidden" name="sgenre" value="{{ pgenre }}">
+                <input type="hidden" name="gamename" value="{{ pgamename }}">
+                <input type="submit" class="btn btn-info" value="Sort by Price (ascending)">
+
+            </form>
+
+             <hr size="10">
+            <br>Average price of search results: ${{ avgprice|float|round(2, 'floor')}}<br>
+            <hr size="10">
+
+            {% for rslt in results %}
+                <form action="/game/" method="POST">
+                <input type="hidden" name="gid" value="{{ rslt.id }}">
+                <input type="submit" class="btn btn-success" value="-->">
+                {{ rslt.title }}   ID: {{ rslt.id }}   COSTS: {{ rslt.price }} <br>
+                </form>
+
+            {% endfor %}
+
+
+
+
+
+
+
+                </div>
+
 
         </div><!-- /.container -->
 

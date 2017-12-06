@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <style>
+            .well {
+                color: black;
+                background-color: black;
+            }
+        </style>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+        <title>Compare</title>
+    </head>
+    
+    <body>
+        <div class="well well-lg" style="width: 600px">
+                <h1>{{ gameTitle_1 }}</h1>
+                <ul class="list-unstyled">
+                    <li>{{ rating_1 }}</li>
+                    <li>{{ price_1 }}</li>
+                    <li>{{ genre_1 }}</li>
+                </ul>
+        </div> <!-- End of first card -->
+        <div class="well well-lg" style="width: 600px">
+            <h1>{{ gameTitle_2 }}</h1>
+            <ul class="list-unstyled">
+                <li>{{ rating_2 }}</li>
+                <li>{{ price_2 }}</li>
+                <li>{{ genre_2 }}</li>
+            </ul>
+        </div> <!-- End of second card -->
+        <div class="well well-lg" style="width: 600px">
+            <h1>{{ gameTitle_3 }}</h1>
+            <ul class="list-unstyled">
+                <li>{{ rating_3 }}</li>
+                <li>{{ price_3 }}</li>
+                <li>{{ genre_3 }}</li>
+            </ul>
+        </div> <!--- End of third card -->
+        </div>
+        <div class="container">
+            <button type="button" class="btn btn-info btn-md">Compare Ratings</button>
+            <button type="button" class="btn btn-info btn-md">Compare Pricing</button>
+        </div>
+</html>
