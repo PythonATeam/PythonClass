@@ -62,6 +62,8 @@ class Game(db.Model):
   published_by = db.relationship('Published', backref='game')
   comments = db.relationship('Comment', backref='game')
   genre = db.relationship('Genre')
+  price = db.Column(db.String(128))
+  release = db.Colubm(db.String(128))
   available_on = db.relationship('Available', backref='game')
 
   def __repr__(self):
