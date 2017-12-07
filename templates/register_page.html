@@ -19,8 +19,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">Tilted 4: Register</a>
+              <a class="navbar-brand" href="#">Tilted Salt: Register</a>
             </div>
+            <ul class="nav navbar-nav navbar-right">
+                {% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('logout') }}">Log out</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('login') }}">Log in</a></li>
+                {% endif %}
+            </ul>
           </div>
         </nav>
 
@@ -69,8 +77,6 @@
                   </div>
                   <button type="submit" class="btn btn-success">Create Account</button>
                 </form>
-
-
 
 
             </div>

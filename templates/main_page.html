@@ -18,7 +18,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">Tilted 4</a>
+              <a class="navbar-brand" href="#">Tilted Salt</a>
             </div>
             <ul class="nav navbar-nav navbar-right">
                 {% if current_user.is_authenticated %}
@@ -26,8 +26,6 @@
                 {% else %}
                     <li><a href="{{ url_for('login') }}">Log in</a></li>
                     <li><a href="{{ url_for('register') }}">Register</a></li>
-                    <li><a href="{{ url_for('compare') }}">Compare</a></li>
-                    <li><a href="{{ url_for('game') }}">Game</a></li>
                 {% endif %}
             </ul>
           </div>
