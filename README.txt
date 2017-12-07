@@ -1,4 +1,4 @@
-James ìDustinî Moody
+James ‚ÄúDustin‚Äù Moody
 Breanna Eubanks
 Bayan Kharazmi
 Erik David
@@ -13,7 +13,7 @@ Users could benefit from help in selecting their next game to play or purchase. 
 Our flow to do this is as follows:
 1) Execute scraper.py to generate the output file with our data from the web scraping. (data.txt)
 2) Execute conversion2.py to generate a sql script to update our database with our newly scraped data. (insert2.sql)
-3) Through our MySQL terminal run the command ìsource insert2.sqlî to execute the script.
+3) Through our MySQL terminal run the command ‚Äúsource insert2.sql‚Äù to execute the script.
 
 
 URL: http://tilted4.pythonanywhere.com
@@ -45,14 +45,16 @@ SQLAlchemy Documentation http://docs.sqlalchemy.org/en/latest/orm/tutorial.html
 
 PythonAnywhere Blog/Tutorial https://blog.pythonanywhere.com/
 
+Gamestop gamestop.com -- This is where we scraped our date from, and we also link to their pictures for our game pages.
+
 
 Division of Labor
 
-Dustin ñ Back-end, Front-end, database support
+Dustin ‚Äì Back-end, Front-end, database support
 (majority of code in our flask_app.py except for the database structure classes, main_page.html, login_page.html, register_page.html)
-Breanna ñ Primary database admin, some front-end & back-end work
+Breanna ‚Äì Primary database admin, some front-end & back-end work
 (SQLAlchemy database structure code (in flask_app.py), game.html)
-Bayan ñ Data conversion, general support
+Bayan ‚Äì Data conversion, general support
 (conversion2.py)
-Eric ñ Data analysis, web scraping
+Eric ‚Äì Data analysis, web scraping
 (scraper.py)
